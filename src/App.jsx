@@ -7,7 +7,6 @@ import { T, SANS } from "./theme";
 import Home from "./pages/Home";
 import Compliance from "./pages/Compliance";
 import Footer from "./components/Footer";
-import CraneCursor from "./components/CraneCursor";
 
 // ═══════════════════════════════════════════════════════════
 //  PARTNER MODAL (CLEAN & PROFESSIONAL)
@@ -210,11 +209,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen selection:bg-white/20 flex flex-col" style={{ background: T.bg, color: T.text, fontFamily: SANS }}>
-      <CraneCursor />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         html { scroll-behavior: smooth; }
-        body { background-color: ${T.bg}; cursor: none; }
+        body { background-color: ${T.bg}; }
       `}</style>
 
       <PartnerModal open={modalOpen} onClose={() => setModalOpen(false)} />
