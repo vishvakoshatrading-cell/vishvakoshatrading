@@ -68,7 +68,7 @@ export default function Home({ openModal }) {
                     className="absolute inset-0 w-full h-full object-cover z-0"
                 >
                     <source
-                        src="/ship-bg.mp4"
+                        src="/hero-video.mp4"
                         type="video/mp4"
                     />
                 </video>
