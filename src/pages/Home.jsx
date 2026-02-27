@@ -59,7 +59,7 @@ export default function Home({ openModal }) {
         <>
             {/* ╔══ ENTERPRISE HERO ═════════════════════════════╗ */}
             <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-                {/* Cinematic Video Background - Replace src with your local file, e.g., src="/ship-bg.mp4" */}
+                {/* Cinematic Video Background - Compressed version (<10MB) for smooth streaming */}
                 <video
                     autoPlay
                     loop
