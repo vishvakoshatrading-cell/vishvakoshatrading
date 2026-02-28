@@ -20,7 +20,7 @@ const ContactForm = () => {
 
         try {
             // Send it to your secure SheetDB link
-            const response = await fetch(import.meta.env.VITE_SHEETDB_URL, {
+         const response = await fetch('https://sheetdb.io/api/v1/YOUR_ACTUAL_LINK_HERE', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
