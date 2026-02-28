@@ -20,7 +20,8 @@ const ContactForm = () => {
 
         try {
             // Send it to your secure SheetDB link
-         const response = await fetch('https://sheetdb.io/api/v1/YOUR_ACTUAL_LINK_HERE', {
+            // It should look exactly like this now:
+            const response = await fetch('https://formspree.io/f/mykdaykg', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -81,8 +82,8 @@ const ContactForm = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className={`w-full p-4 font-bold rounded transition-all duration-300 ${isSubmitting
-                        ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
-                        : 'bg-amber-500 text-slate-950 hover:bg-amber-400'
+                    ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                    : 'bg-amber-500 text-slate-950 hover:bg-amber-400'
                     }`}
             >
                 {status}
