@@ -41,30 +41,30 @@ const PartnerForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // 1. Spam Honeypot Check
-        if (botTrap !== '') {
-            console.warn('Spam detected. Submission blocked.');
-            return;
-        }
-
         setStatus({ submitting: true, success: false, error: null });
 
         try {
-            // 2. Package data for Web3Forms
-            const data = new FormData();
-            data.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY);
-            data.append('name', formData.name);
-            data.append('email', formData.email);
-            data.append('country', formData.country);
-            data.append('phone', formData.phone);
-            data.append('message', formData.message);
-            data.append('subject', 'New Partnership Inquiry - Vishvakosha Trading');
-            data.append('from_name', 'Vishvakosha Trading Website');
+            // 2. Package data for Web3Forms (Using JSON instead of FormData)
+            const payload = {
+                access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+                botcheck: botTrap !== '' ? true : false, // Web3Forms standard honeypot
+                name: formData.name,
+                email: formData.email,
+                country: formData.country,
+                phone: formData.phone,
+                message: formData.message,
+                subject: 'New Partnership Inquiry - Vishvakosha Trading',
+                from_name: 'Vishvakosha Trading Website'
+            };
 
             // 3. POST to Web3Forms API
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify(payload),
             });
 
             const result = await response.json();
