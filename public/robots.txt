@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vishvakoshatrading.com/sitemap.xml
