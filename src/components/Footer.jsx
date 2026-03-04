@@ -103,13 +103,13 @@ export default function Footer({ openModal }) {
                                 </button>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-white transition-colors flex items-center gap-3">
+                                <a href="https://www.linkedin.com/in/bhavesh-lokhande-29a35231a/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-3">
                                     <Linkedin className="w-4 h-4" /> Corporate LinkedIn
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:contact@vishvakoshatrading.com" className="hover:text-white transition-colors flex items-center gap-3">
-                                    <Mail className="w-4 h-4" /> contact@vishvakoshatrading.com
+                                <a href="mailto:vishvakoshatrading@gmail.com" className="hover:text-white transition-colors flex items-center gap-3">
+                                    <Mail className="w-4 h-4" /> vishvakoshatrading@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -119,11 +119,7 @@ export default function Footer({ openModal }) {
                     <div>
                         <h4 className="font-bold uppercase tracking-widest mb-6" style={{ color: T.accent }}>Trust & Subsidiaries</h4>
                         <ul className="flex flex-col gap-4" style={{ color: T.sub }}>
-                            <li>
-                                <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">
-                                    Compliance & ISO Certifications
-                                </Link>
-                            </li>
+
                             <li>
                                 <a href={REDIRECT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center justify-between group">
                                     coti8.com - B2B Retail Platform
@@ -140,9 +136,6 @@ export default function Footer({ openModal }) {
 
                 <div className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-xs tracking-widest uppercase" style={{ borderColor: T.border, color: T.sub }}>
                     <div>Copyright © 2026 Vishvakosha Trading. All rights reserved.</div>
-                    <div className="flex items-center gap-2">
-                        <Building2 className="w-4 h-4" /> Incorporated Trade Entity
-                    </div>
                 </div>
             </div>
         </footer>

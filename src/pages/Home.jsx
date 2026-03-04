@@ -3,36 +3,7 @@ import { motion, useInView, animate } from "framer-motion";
 import { ArrowRight, Globe, Users, Quote, ChevronRight } from "lucide-react";
 import { T, REDIRECT_URL } from "../theme";
 
-// ═══════════════════════════════════════════════════════════
-//  STAT COUNTER
-// ═══════════════════════════════════════════════════════════
-function StatCounter({ end, suffix, label }) {
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true, margin: "-20px" });
-    const [val, setVal] = useState(0);
 
-    useEffect(() => {
-        if (inView) {
-            const controls = animate(0, end, {
-                duration: 2.5,
-                ease: "easeOut",
-                onUpdate: (v) => setVal(Math.round(v).toLocaleString())
-            });
-            return controls.stop;
-        }
-    }, [inView, end]);
-
-    return (
-        <div ref={ref} className="flex flex-col gap-2">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-black tabular-nums tracking-tight" style={{ color: T.text }}>
-                {val}{suffix}
-            </div>
-            <div className="text-[10px] sm:text-xs lg:text-sm font-medium uppercase tracking-widest text-balance" style={{ color: T.sub }}>
-                {label}
-            </div>
-        </div>
-    );
-}
 
 // ═══════════════════════════════════════════════════════════
 //  SCROLL REVEAL UTILITY
@@ -130,17 +101,7 @@ export default function Home({ openModal }) {
                 </div>
             </section>
 
-            {/* ╔══ LIVE STATS STRIP ════════════════════════════╗ */}
-            <section className="relative border-y z-20" style={{ borderColor: T.border, background: T.bgCard }}>
-                <div className="max-w-7xl mx-auto px-6 py-10 lg:py-12">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 md:gap-8 divide-x-0 md:divide-x divide-slate-800">
-                        <div className="px-0 md:px-6"><StatCounter end={50} suffix="+" label="Global Ports" /></div>
-                        <div className="px-0 md:px-6"><StatCounter end={10000} suffix="+" label="TEUs Shipped" /></div>
-                        <div className="px-0 md:px-6"><StatCounter end={3} suffix="" label="Core Export Divisions" /></div>
-                        <div className="px-0 md:px-6"><StatCounter end={9001} suffix=" ISO" label="Compliant" /></div>
-                    </div>
-                </div>
-            </section>
+
 
             {/* ╔══ ABOUT & LEADERSHIP (SPLIT-GRID) ═════════════╗ */}
             <section className="py-20 lg:py-32 relative">

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Send, X } from "lucide-react";
+import { Send, X, Loader2 } from "lucide-react";
+import emailjs from '@emailjs/browser';
 import { T, SANS } from "./theme";
 
 import Home from "./pages/Home";
-import Compliance from "./pages/Compliance";
+
 import Footer from "./components/Footer";
 
 // ═══════════════════════════════════════════════════════════
@@ -60,6 +61,7 @@ function FloatInputModal({ label, type = "text", value, onChange, required, as: 
 function PartnerModal({ open, onClose }) {
   const [form, setForm] = useState({ name: "", email: "", country: "", phone: "", message: "", consent: false });
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botTrap, setBotTrap] = useState("");
 
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.type === "checkbox" ? e.target.checked : e.target.value }));
@@ -74,17 +76,43 @@ function PartnerModal({ open, onClose }) {
     }
 
     // 2. Secure API Submission Setup
-    // Ensure you add VITE_FORM_API_KEY to your local .env file and your Vercel Project Environment Variables.
-    // Example: const apiKey = import.meta.env.VITE_FORM_API_KEY;
-    // ... API submission or EmailJS logic goes here using apiKey ...
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    setSent(true);
-    setTimeout(() => {
-      setSent(false);
-      setForm({ name: "", email: "", country: "", phone: "", message: "", consent: false });
-      setBotTrap("");
-      onClose();
-    }, 2500);
+    if (!serviceId || !templateId || !publicKey) {
+      console.error("Missing Env Vars for EmailJS");
+      alert("System unavailable. Please try again later.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const templateParams = {
+      user_name: form.name,
+      user_email: form.email,
+      user_country: form.country,
+      user_phone: form.phone,
+      message: form.message,
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+        setSent(true);
+        setTimeout(() => {
+          setSent(false);
+          setForm({ name: "", email: "", country: "", phone: "", message: "", consent: false });
+          setBotTrap("");
+          onClose();
+        }, 2500);
+      })
+      .catch((err) => {
+        console.error("EmailJS Error:", err);
+        alert("Failed to send message. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   useEffect(() => {
@@ -185,10 +213,18 @@ function PartnerModal({ open, onClose }) {
 
                   <button
                     type="submit"
-                    className="w-full py-4 mt-4 font-bold text-xs uppercase tracking-widest text-white transition-all outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900"
-                    style={{ background: T.modalText }}
+                    disabled={isSubmitting}
+                    className="w-full py-4 mt-4 font-bold text-xs uppercase tracking-widest text-white transition-all outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 flex items-center justify-center gap-2"
+                    style={{ background: isSubmitting ? T.modalBorder : T.modalText }}
                   >
-                    Send Inquiry
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Inquiry"
+                    )}
                   </button>
                 </form>
               )}
@@ -220,7 +256,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home openModal={openModal} />} />
-          <Route path="/compliance" element={<Compliance />} />
+
         </Routes>
       </main>
 
